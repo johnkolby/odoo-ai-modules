@@ -40,7 +40,7 @@ jobs:
             odoo --db_host=127.0.0.1 --db_user=odoo --db_password=odoo \
               --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons \
               -d test -i ai_digest,ai_web_editor \
-              --test-enable --stop-after-init \
+              --test-enable --test-tags /ai_digest,/ai_web_editor --stop-after-init \
             > /tmp/odoo-ci.log 2>&1 \
             || { echo '--- last 40 lines of odoo output ---' >> $GITHUB_STEP_SUMMARY
                tail -40 /tmp/odoo-ci.log >> $GITHUB_STEP_SUMMARY
