@@ -1,0 +1,26 @@
+<section style="max-width:900px;margin:0 auto;font-family:sans-serif">
+    <h2 style="color:#1B4FD1">AI Business Digest — permission-aware AI summaries of your Odoo data</h2>
+    <p>
+        Get an executive summary of your operations — receivables, payables, sales,
+        CRM pipeline and your overdue activities — written by an LLM, scoped to
+        exactly what the requesting user is allowed to see.
+    </p>
+
+    <h3>Features</h3>
+    <ul>
+        <li><b>Interactive wizard</b> (Settings → AI Digest): pick a date range, get a structured summary — the exact JSON sent to the LLM is shown for transparency.</li>
+        <li><b>Collaborative Discuss bot</b>: ask follow-ups in a channel (<code>?ai dig into payables</code>) and get deep dives — aging buckets, customer concentration, stale leads, payment history.</li>
+        <li><b>Daily digest</b>: cron posts an org-wide summary into any private Discuss channel.</li>
+        <li><b>Role-aware answers</b>: summaries are framed for the asker (finance, sales, admin).</li>
+        <li><b>Permission-safe by design</b>: data is collected as the requesting user (no sudo), record rules and multi-company rules apply automatically; only aggregates leave the database.</li>
+    </ul>
+
+    <h3>LLM providers</h3>
+    <p>Anthropic, OpenAI, OpenRouter or a local Ollama — configured via System Parameters. One setting to switch models; nothing is hardcoded.</p>
+
+    <h3>Configuration</h3>
+    <p>After install, set <code>ai_digest.provider</code>, <code>ai_digest.api_key</code> (and optionally
+    <code>ai_digest.model</code>, <code>ai_digest.channel_id</code>) in Settings → Technical → System Parameters. See README.</p>
+
+    <p><i>Works with Odoo 16 Community and Enterprise.</i></p>
+</section>

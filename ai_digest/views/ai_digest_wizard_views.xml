@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_digest_wizard_form" model="ir.ui.view">
+        <field name="name">ai.digest.wizard.form</field>
+        <field name="model">ai.digest.wizard</field>
+        <field name="arch" type="xml">
+            <form string="AI Business Digest">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate" type="object" string="Generate Summary" class="btn-primary" attrs="{'invisible': [('summary', '!=', False)]}"/>
+                    <button string="Close" special="cancel" attrs="{'invisible': [('summary', '=', False)]}"/>
+                </footer>
+                <group attrs="{'invisible': [('summary', '=', False)]}">
+                    <field name="summary" nolabel="1" colspan="2"/>
+                </group>
+                <group string="Raw stats sent to the LLM" collapsible="1" attrs="{'invisible': [('summary', '=', False)]}">
+                    <field name="stats_json" nolabel="1" colspan="2"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_digest_wizard" model="ir.actions.act_window">
+        <field name="name">AI Business Digest</field>
+        <field name="res_model">ai.digest.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_ai_digest"
+              name="AI Digest"
+              parent="base.menu_administration"
+              action="action_ai_digest_wizard"
+              groups="ai_digest.group_ai_user"
+              sequence="90"/>
+</odoo>
