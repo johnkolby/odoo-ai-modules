@@ -5,6 +5,10 @@ on:
     branches: [main, master]
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   odoo16:
     runs-on: ubuntu-22.04
@@ -34,6 +38,7 @@ jobs:
             -v ${{ github.workspace }}:/mnt/extra-addons \
             odoo:16.0 \
             odoo --db_host=127.0.0.1 --db_user=odoo --db_password=odoo \
-              --addons-path=/mnt/extra-addons \
+              --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons \
+              --load-language=en_US \
               -d test -i ai_digest,ai_web_editor \
               --test-enable --stop-after-init --log-level=warn
