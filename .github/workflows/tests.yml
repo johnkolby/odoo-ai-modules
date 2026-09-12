@@ -39,6 +39,10 @@ jobs:
             odoo:16.0 \
             odoo --db_host=127.0.0.1 --db_user=odoo --db_password=odoo \
               --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons \
-              --load-language=en_US \
               -d test -i ai_digest,ai_web_editor \
-              --test-enable --stop-after-init --log-level=warn
+              --test-enable --stop-after-init \
+            > /tmp/odoo-ci.log 2>&1 \
+            || { echo '--- last 60 lines of odoo output ---'; tail -60 /tmp/odoo-ci.log; exit 1; }
+          echo '### Test results' >> $GITHUB_STEP_SUMMARY
+          grep -E 'odoo.tests' /tmp/odoo-ci.log | tail -6 >> $GITHUB_STEP_SUMMARY || true
+          grep -E '0 failed' /tmp/odoo-ci.log || { echo 'no test summary found'; tail -20 /tmp/odoo-ci.log; exit 1; }
