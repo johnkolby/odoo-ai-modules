@@ -42,8 +42,10 @@ jobs:
               -d test -i ai_digest,ai_web_editor \
               --test-enable --stop-after-init \
             > /tmp/odoo-ci.log 2>&1 \
-            || { echo '--- last 60 lines of odoo output ---' >> $GITHUB_STEP_SUMMARY
-               tail -60 /tmp/odoo-ci.log >> $GITHUB_STEP_SUMMARY
+            || { echo '--- last 40 lines of odoo output ---' >> $GITHUB_STEP_SUMMARY
+               tail -40 /tmp/odoo-ci.log >> $GITHUB_STEP_SUMMARY
+               echo '--- last 15 lines as annotations ---' >> $GITHUB_STEP_SUMMARY
+               tail -15 /tmp/odoo-ci.log | sed 's/::/\\:\\:/g' | while IFS= read -r line; do echo "::error title=odoo output::${line:0:1000}"; done
                exit 1; }
           echo '### Test results' >> $GITHUB_STEP_SUMMARY
           grep -E 'odoo.tests' /tmp/odoo-ci.log | tail -6 >> $GITHUB_STEP_SUMMARY || true
