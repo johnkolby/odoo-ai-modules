@@ -1,0 +1,39 @@
+name: tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  odoo16:
+    runs-on: ubuntu-22.04
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install modules + run tests on Odoo 16
+        run: |
+          docker run --rm --network host \
+            -e HOST=127.0.0.1 \
+            -e USER=odoo \
+            -e PASSWORD=odoo \
+            -v ${{ github.workspace }}:/mnt/extra-addons \
+            odoo:16.0 \
+            odoo --db_host=127.0.0.1 --db_user=odoo --db_password=odoo \
+              --addons-path=/mnt/extra-addons \
+              -d test -i ai_digest,ai_web_editor \
+              --test-enable --stop-after-init --log-level=warn

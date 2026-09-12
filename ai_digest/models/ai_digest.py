@@ -1,3 +1,5 @@
+# Victory Technical Services
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.html).
 import json
 import logging
 
@@ -428,10 +430,11 @@ class AiDigest(models.AbstractModel):
     # ------------------------------------------------------------------
 
     FOCUS_KEYWORDS = [
+        # order matters: most-specific first ("salesperson" contains "sale")
         ("receivables", ("receivab", "customer invoice", "customer payment", "ar ", "aging")),
         ("payables", ("payable", "vendor", "supplier", "bill", "ap ")),
+        ("leads", ("lead", "pipeline", "prospect", "opportunit", "stale")),
         ("sales", ("sale", "order", "revenue this", "sold")),
-        ("leads", ("lead", "pipeline", "prospect", "opportunit", "deal")),
         ("activities", ("activity", "task", "to-do", "todo", "follow-up")),
     ]
 
@@ -444,18 +447,24 @@ class AiDigest(models.AbstractModel):
         return "all"
 
     def _persona(self, user):
-        """Role lens derived from the asker's groups."""
+        """Role lens derived from the asker's groups. Guards with
+        raise_if_not_found=False: apps like Sales may not be installed."""
         roles = []
         g = user.groups_id
-        if self.env.ref("account.group_account_manager") in g:
+        acct_mgr = self.env.ref("account.group_account_manager", raise_if_not_found=False)
+        acct_user = self.env.ref("account.group_account_user", raise_if_not_found=False)
+        sale_mgr = self.env.ref("sales_team.group_sale_manager", raise_if_not_found=False)
+        sale_user = self.env.ref("sales_team.group_sale_salesman", raise_if_not_found=False)
+        sys_admin = self.env.ref("base.group_system", raise_if_not_found=False)
+        if acct_mgr and acct_mgr in g:
             roles.append("finance/accounting leadership")
-        elif self.env.ref("account.group_account_user") in g:
+        elif acct_user and acct_user in g:
             roles.append("accounting/finance staff")
-        if self.env.ref("sales_team.group_sale_manager") in g:
+        if sale_mgr and sale_mgr in g:
             roles.append("sales leadership")
-        elif self.env.ref("sales_team.group_sale_salesman") in g:
+        elif sale_user and sale_user in g:
             roles.append("sales staff")
-        if self.env.ref("base.group_system") in g:
+        if sys_admin and sys_admin in g:
             roles.append("system administration")
         return ", ".join(roles) or "general business user"
 

@@ -1,6 +1,8 @@
+# Victory Technical Services
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.html).
 {
     "name": "AI Business Digest",
-    "version": "16.0.2.0.0",
+    "version": "16.0.2.1.0",
     "category": "Productivity/AI",
     "summary": "Permission-aware AI summaries of invoices, payables, leads and sales",
     "description": """
@@ -13,7 +15,9 @@ AI Business Digest
 - Only aggregates leave the database (counts, totals, top-5 names) —
   never full documents.
 """,
-    "author": "johnkolby",
+    "author": "Victory Technical Services",
+    "website": "https://www.victorytechnical.com",
+    "maintainers": ["Victory Technical Services"],
     "license": "LGPL-3",
     "depends": ["mail", "account"],
     "data": [

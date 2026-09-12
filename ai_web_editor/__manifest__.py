@@ -1,3 +1,5 @@
+# Victory Technical Services
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.html).
 {
     "name": "AI Web Editor Assistant",
     "version": "16.0.1.0.0",
@@ -14,7 +16,9 @@ inserted live into the page — designer keeps full control with native tools.
 - Server-side sanitization: no scripts/iframes/event handlers/javascript: URIs
 - Group-gated: AI Web Editor / Designer
 """,
-    "author": "johnkolby",
+    "author": "Victory Technical Services",
+    "website": "https://www.victorytechnical.com",
+    "maintainers": ["Victory Technical Services"],
     "license": "LGPL-3",
     "depends": ["website", "web_editor", "ai_digest"],
     "data": [
