@@ -1,4 +1,4 @@
-# Victory Technical Services
+# Copyright (c) 2026 John Kolby — Victory Technical Services
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.html).
 {
     "name": "AI Web Editor Assistant",
@@ -16,9 +16,9 @@ inserted live into the page — designer keeps full control with native tools.
 - Server-side sanitization: no scripts/iframes/event handlers/javascript: URIs
 - Group-gated: AI Web Editor / Designer
 """,
-    "author": "Victory Technical Services",
-    "website": "https://www.victorytechnical.com",
-    "maintainers": ["Victory Technical Services"],
+    "author": "John Kolby",
+    "website": "https://victorytechnical.com",
+    "maintainers": ["John Kolby"],
     "license": "LGPL-3",
     "depends": ["website", "web_editor", "ai_digest"],
     "data": [

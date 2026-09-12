@@ -1,4 +1,4 @@
-# Victory Technical Services
+# Copyright (c) 2026 John Kolby — Victory Technical Services
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.html).
 {
     "name": "AI Business Digest",
@@ -15,9 +15,9 @@ AI Business Digest
 - Only aggregates leave the database (counts, totals, top-5 names) —
   never full documents.
 """,
-    "author": "Victory Technical Services",
-    "website": "https://www.victorytechnical.com",
-    "maintainers": ["Victory Technical Services"],
+    "author": "John Kolby",
+    "website": "https://victorytechnical.com",
+    "maintainers": ["John Kolby"],
     "license": "LGPL-3",
     "depends": ["mail", "account"],
     "data": [
